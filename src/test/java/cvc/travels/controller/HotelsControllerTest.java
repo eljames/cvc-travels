@@ -19,14 +19,38 @@ public class HotelsControllerTest {
 	@Test
 	public void mustReturnOkOnGettingHotelsByCity() throws Exception {
 		this.mockMvc
-		.perform(get("/api/hotels/city/7110"))
+		.perform(get("/api/hotels/city/7110")
+			.queryParam("checkInDate", "2021-05-28")
+			.queryParam("checkOutDate", "2021-05-29")
+			.queryParam("numberOfAdults", "1")
+			.queryParam("numberOfChildren", "1")
+		)
 		.andExpect(status().isOk());
 	}
 	
 	@Test
 	public void mustReturnOkOnGettingHotelById() throws Exception {
 		this.mockMvc
-		.perform(get("/api/hotels/1"))
+		.perform(get("/api/hotels/1")
+			.queryParam("checkInDate", "2021-05-28")
+			.queryParam("checkOutDate", "2021-05-29")
+			.queryParam("numberOfAdults", "1")
+			.queryParam("numberOfChildren", "1")
+		)
 		.andExpect(status().isOk());
 	}
+	
+	@Test
+	public void mustReturnUnprocessedEntityWrongDateOnGettingHotelById() throws Exception {
+		this.mockMvc
+		.perform(get("/api/hotels/1")
+			.queryParam("checkInDate", "2021-05-jj28")
+			.queryParam("checkOutDate", "2021-05-29")
+			.queryParam("numberOfAdults", "1")
+			.queryParam("numberOfChildren", "1")
+		)
+		.andExpect(status().is(422));
+	}
+	
+	
 }
