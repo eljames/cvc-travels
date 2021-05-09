@@ -1,6 +1,8 @@
 package cvc.travels.business;
 
+import java.math.BigDecimal;
+
 public class Price{
-    public double adult;
-    public double child;
+    public BigDecimal adult;
+    public BigDecimal child;
 }
