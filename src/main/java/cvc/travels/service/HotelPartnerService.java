@@ -3,6 +3,7 @@ package cvc.travels.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,6 +17,7 @@ public class HotelPartnerService {
 	@Autowired
 	private WebClient client;
 	
+	@Cacheable("hotels")
 	public List<HotelPartner> hotelsByCity(int cityId) {
 		Mono<List<HotelPartner>> hotels = client
 			.get()
