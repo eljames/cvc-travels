@@ -1,4 +1,4 @@
-package cvc.travels;
+package cvc.travels.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,16 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import cvc.travels.business.Hotel;
-import cvc.travels.business.HotelPartner;
-import cvc.travels.business.InputParamCached;
-import cvc.travels.business.MapPartner;
-import cvc.travels.business.Price;
-import cvc.travels.business.PriceDetail;
-import cvc.travels.business.Room;
-import cvc.travels.business.RoomPartner;
-import cvc.travels.business.TreatableException;
 
 public class MapPartnerTest {
 	
@@ -54,7 +44,6 @@ public class MapPartnerTest {
 		
 		assertEquals(new BigDecimal("2302.80"), room.totalPrice);
 	}
-	
 	
 	
 	/**
