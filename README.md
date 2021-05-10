@@ -13,7 +13,7 @@ numberOfAdults = número de adultos
 numberOfChildren = número de crianças acompanhadas.  
   
 Retorno:  
-  
+```json
 [  
     {  
         "id": 4,  
@@ -34,7 +34,7 @@ Retorno:
         ]  
     }  
 ]  
-
+```
 Informações do retorno:  
   
 id = ID do hotel  
