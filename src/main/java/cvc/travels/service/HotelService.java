@@ -4,8 +4,12 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import cvc.travels.business.ErrorCodes;
 import cvc.travels.business.Hotel;
@@ -18,6 +22,8 @@ import cvc.travels.business.TreatableException;
 @Component
 public class HotelService {
 	
+	private static final Logger logger = LogManager.getLogger(HotelService.class);
+	
 	@Autowired
 	private HotelPartnerService hotelPartner;
 	
@@ -26,12 +32,21 @@ public class HotelService {
 	 * @param cityId The id of a specific city
 	 * @return
 	 * @throws TreatableException 
+	 * @throws Exception 
 	 */
 	
-	public List<Hotel> hotelsByCity(int cityId, InputParameters inputs) throws TreatableException {
-		InputParamCached cached = createInputParamCached(inputs);
-		List<HotelPartner> hotels = this.hotelPartner.hotelsByCity(cityId);
-		return new MapPartner().mapToThisBusiness(hotels, cached);
+	public List<Hotel> hotelsByCity(int cityId, InputParameters inputs) throws TreatableException, Exception {
+		try {
+			logger.info("Input hotelsByCity. cityId: " + cityId + "; parameters: " + inputs.toString());
+			InputParamCached cached = createInputParamCached(inputs);
+			List<HotelPartner> hotelspartner = this.hotelPartner.hotelsByCity(cityId);
+			List<Hotel> hotels = new MapPartner().mapToThisBusiness(hotelspartner, cached);
+			logger.info("response hotels: " + new JsonMapper().writeValueAsString(hotels));
+			return hotels;
+		} catch (TreatableException e) {
+			logger.error(e.toString());
+			throw e;
+		}
 	}
 
 	/**
@@ -39,11 +54,20 @@ public class HotelService {
 	 * @param hotelId
 	 * @return
 	 * @throws TreatableException 
+	 * @throws Exception 
 	 */
-	public List<Hotel> hotel(int hotelId, InputParameters inputs) throws TreatableException {
-		InputParamCached cached = createInputParamCached(inputs);
-		List<HotelPartner> hotels = this.hotelPartner.hotel(hotelId);
-		return new MapPartner().mapToThisBusiness(hotels, cached);
+	public List<Hotel> hotel(int hotelId, InputParameters inputs) throws TreatableException, Exception {
+		try {
+			logger.info("Input hotelsByCity. cityId: " + hotelId + "; parameters: " + inputs.toString());
+			InputParamCached cached = createInputParamCached(inputs);
+			List<HotelPartner> hotelspartner = this.hotelPartner.hotel(hotelId);
+			List<Hotel> hotels = new MapPartner().mapToThisBusiness(hotelspartner, cached);
+			logger.info("response hotels: " + new JsonMapper().writeValueAsString(hotels));
+			return hotels;
+		} catch (TreatableException e) {
+			logger.error(e.toString());
+			throw e;
+		}
 	}
 	
 	private InputParamCached createInputParamCached(InputParameters inputs) throws TreatableException {

@@ -4,9 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 
 import cvc.date.ConvertedDate;
-import lombok.Setter;
 
-@Setter
 public class InputParameters {
 	
 	
@@ -70,5 +68,11 @@ public class InputParameters {
 
 	public void setCheckOutDate(String checkOutDate) {
 		this.checkOutDate = checkOutDate;
+	}
+
+	@Override
+	public String toString() {
+		return "InputParameters [checkInDate=" + checkInDate + ", checkOutDate=" + checkOutDate + ", numberOfAdults="
+				+ numberOfAdults + ", numberOfChildren=" + numberOfChildren + "]";
 	}
 }

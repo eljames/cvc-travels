@@ -1,5 +1,7 @@
 package cvc.travels;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.CacheManager;
@@ -11,12 +13,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
 @EnableCaching
-public class TravelsApplication {
+public class TravelsApp {
+	
+	
+	private static final Logger logger = LogManager.getLogger(TravelsApp.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(TravelsApplication.class, args);
+		logger.info("Started Travel Application");
+		SpringApplication.run(TravelsApp.class, args);
 	}
-	
 	
 	@Bean
 	public WebClient getWebClientBuilder(){
